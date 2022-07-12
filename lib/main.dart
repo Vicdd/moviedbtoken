@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moviedbtoken/theme/custom_theme.dart';
 import 'package:moviedbtoken/views/movie_list.dart';
 
 void main() {
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: const Color(CTheme.primaryColor),
+        scaffoldBackgroundColor: const Color(CTheme.primaryColor),
       ),
       home: const MovieListPage(),
     );

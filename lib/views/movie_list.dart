@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/custom_theme.dart';
+
 class MovieListPage extends StatefulWidget {
   const MovieListPage({Key? key}) : super(key: key);
 
@@ -13,6 +15,7 @@ class _MovieListPageState extends State<MovieListPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Movies'),
+        backgroundColor: const Color(CTheme.tertiaryColor),
       ),
       body: const Text('TODO'),
     );
