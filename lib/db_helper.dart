@@ -27,9 +27,55 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''CREATE TABLE movies (
             id INTEGER PRIMARY KEY,
+            movie_id INTEGER,
+            title TEXT,
+            poster_url TEXT,
+            release_date TEXT,
+            vote_average INTEGER,
+            genres TEXT,
+            image BLOB,
+            details_id INTEGER
           )''');
     await db.execute('''CREATE TABLE movie_details (
             id INTEGER PRIMARY KEY,
+            original_language TEXT,
+            runtime INTEGER,
+            status TEXT,
+            vote_count INTEGER,
+            FOREIGN KEY(id) REFERENCES movies(details_id)
           )''');
+  }
+
+  Future<int> insert(String table, Map<String, dynamic> row) async {
+    Database db = await instance.database;
+    return await db.insert(table, row);
+  }
+
+  Future<List<Map<String, dynamic>>> queryAllRows(String table) async {
+    Database db = await instance.database;
+    return await db.query(table);
+  }
+
+  Future query(String table, int id) async {
+    Database db = await instance.database;
+    List<Map> maps =
+        await db.query(table, where: 'id = ?', whereArgs: [id], limit: 1);
+    return maps.isNotEmpty ? maps[0] : null;
+  }
+
+  Future<int> update(String table, Map<String, dynamic> row) async {
+    Database db = await instance.database;
+    return await db.update(table, row, where: 'id= ?', whereArgs: [row['id']]);
+  }
+
+  Future<int> delete(String table, int id) async {
+    Database db = await instance.database;
+    return await db.delete(table, where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future queryRowCount(String table) async {
+    Database db = await instance.database;
+    return Sqflite.firstIntValue(
+        await db.rawQuery('SELECT COUNT(*) FROM $table'));
   }
 }
