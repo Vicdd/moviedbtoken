@@ -23,10 +23,24 @@ class MovieCard extends StatelessWidget {
           color: Colors.white,
         ),
         padding: const EdgeInsets.all(8.0),
-        child: Text(
-          movie.title ?? '',
-          style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 252,
+              child: movie.image != null
+                  ? Image.memory(movie.image!)
+                  : const Center(
+                      child: Text('Error loading image'),
+                    ),
+            ),
+            const SizedBox(height: 4.0),
+            Text(
+              movie.title ?? '',
+              style:
+                  const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
